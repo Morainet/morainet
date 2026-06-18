@@ -13,12 +13,13 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0e2433, #1c6a8e)",
+          background: "linear-gradient(150deg, #ffffff, #e6eef1)",
+          borderRadius: 14,
         }}
       >
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4 28 26H4L16 4Z" stroke="#48e6d4" strokeWidth="2.4" strokeLinejoin="round" />
-          <path d="M9.5 17h13M7 21.5h18" stroke="#48e6d4" strokeWidth="2.4" strokeLinecap="round" />
+        <svg width="42" height="42" viewBox="0 0 32 32" fill="none">
+          <path d="M16 4 28 26H4L16 4Z" stroke="#15627e" strokeWidth="2.6" strokeLinejoin="round" />
+          <path d="M9.5 17h13M7 21.5h18" stroke="#15627e" strokeWidth="2.6" strokeLinecap="round" />
         </svg>
       </div>
     ),
