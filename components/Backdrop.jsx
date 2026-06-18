@@ -1,60 +1,28 @@
 "use client";
 
-// Decorative, full-bleed atmospheric background: glacier-blue gradient blobs,
-// a faint grid, sediment strata, and floating particles. Pure CSS animation.
+// Editorial backdrop: warm paper, a very faint baseline grid, and a pair of
+// hairline column guides that hint at the underlying typographic grid.
+// Deliberately quiet — the layout and type carry the design.
 
 export default function Backdrop() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      {/* Base radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(35,132,173,0.25),transparent_60%)]" />
+      <div className="absolute inset-0 bg-paper" />
 
-      {/* Drifting glacier blobs */}
-      <div className="absolute -left-40 top-10 h-[36rem] w-[36rem] rounded-full bg-glacier-600/20 blur-[120px] animate-drift" />
-      <div className="absolute right-[-10rem] top-1/3 h-[32rem] w-[32rem] rounded-full bg-neon/10 blur-[130px] animate-drift-slow" />
-      <div className="absolute bottom-[-12rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-glacier-800/30 blur-[120px] animate-drift" />
+      {/* Faint baseline grid, fading toward the edges */}
+      <div className="absolute inset-0 paper-grid [background-size:96px_96px] opacity-50 [mask-image:radial-gradient(95%_80%_at_50%_30%,black,transparent)]" />
 
-      {/* Faint grid */}
-      <div className="absolute inset-0 bg-grid-fade [background-size:64px_64px] opacity-40 [mask-image:radial-gradient(80%_60%_at_50%_30%,black,transparent)]" />
+      {/* A single, very soft cool light pool near the top */}
+      <div className="absolute left-1/2 top-[-12rem] h-[28rem] w-[44rem] -translate-x-1/2 rounded-full bg-glacier-200/30 blur-[140px]" />
 
-      {/* Sediment strata at the base */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 strata opacity-60 [mask-image:linear-gradient(to_top,black,transparent)]" />
-
-      {/* Floating particles */}
-      <Particles />
-
-      {/* Subtle film grain */}
-      <div className="absolute inset-0 noise opacity-[0.03] mix-blend-screen" />
+      {/* Hairline column guides (the editorial grid made visible) */}
+      <div className="absolute inset-y-0 left-1/2 hidden w-full max-w-6xl -translate-x-1/2 px-6 sm:px-8 lg:block">
+        <div className="relative h-full">
+          <span className="absolute inset-y-0 left-1/4 w-px bg-ink/[0.05]" />
+          <span className="absolute inset-y-0 left-1/2 w-px bg-ink/[0.05]" />
+          <span className="absolute inset-y-0 left-3/4 w-px bg-ink/[0.05]" />
+        </div>
+      </div>
     </div>
-  );
-}
-
-function Particles() {
-  const dots = [
-    { l: "12%", t: "22%", s: 3, d: "0s" },
-    { l: "28%", t: "68%", s: 2, d: "1.5s" },
-    { l: "44%", t: "18%", s: 4, d: "0.6s" },
-    { l: "61%", t: "52%", s: 2, d: "2.2s" },
-    { l: "73%", t: "28%", s: 3, d: "1s" },
-    { l: "86%", t: "62%", s: 2, d: "0.3s" },
-    { l: "52%", t: "80%", s: 3, d: "1.8s" },
-    { l: "18%", t: "44%", s: 2, d: "2.6s" },
-  ];
-  return (
-    <>
-      {dots.map((p, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full bg-neon-glow/70 shadow-[0_0_8px_2px_rgba(122,245,232,0.5)] animate-floaty"
-          style={{
-            left: p.l,
-            top: p.t,
-            width: p.s,
-            height: p.s,
-            animationDelay: p.d,
-          }}
-        />
-      ))}
-    </>
   );
 }
