@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 const variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 18 },
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.08, ease: [0.21, 0.6, 0.35, 1] },
+    transition: { duration: 0.6, delay: i * 0.07, ease: [0.21, 0.6, 0.35, 1] },
   }),
 };
 
