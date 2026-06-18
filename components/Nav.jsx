@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { content, GITHUB_URL } from "@/lib/content";
 import { useT } from "./LanguageProvider";
 import LanguageToggle from "./LanguageToggle";
-import { IconMark, IconGitHub } from "./Icons";
+import { IconMark } from "./Icons";
 
 export default function Nav() {
   const t = useT();
@@ -20,24 +20,24 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "border-b border-white/5 bg-slatey-950/70 backdrop-blur-xl" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+        scrolled ? "border-ink/10 bg-paper/85 backdrop-blur-md" : "border-transparent bg-transparent"
       }`}
     >
       <nav className="container-mx flex h-16 items-center justify-between">
-        <a href="#top" className="group flex items-center gap-2.5 font-mono text-sm font-semibold tracking-tight">
-          <span className="text-neon transition-transform duration-300 group-hover:rotate-[-8deg]">
+        <a href="#top" className="group flex items-center gap-2.5 font-mono text-sm font-semibold uppercase tracking-[0.18em]">
+          <span className="text-accent">
             <IconMark />
           </span>
-          <span className="text-white">Morai<span className="text-glacier-300">net</span></span>
+          <span className="text-ink">Morainet</span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {content.nav.links.map((l) => (
+        <div className="hidden items-center gap-7 md:flex">
+          {content.nav.links.map((l, i) => (
             <a
               key={l.id}
               href={`#${l.id}`}
-              className="text-sm text-slatey-300 transition-colors hover:text-white"
+              className="link-underline font-mono text-xs uppercase tracking-[0.15em] text-ink-mute transition-colors hover:text-ink"
             >
               {t(l)}
             </a>
@@ -50,14 +50,13 @@ export default function Nav() {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-neon px-4 py-1.5 text-sm font-medium text-slatey-950 transition-all hover:bg-neon-glow hover:shadow-[0_0_24px_-4px_rgba(72,230,212,0.7)] sm:flex"
+            className="hidden items-center gap-2 border border-ink bg-ink px-4 py-1.5 font-mono text-xs uppercase tracking-[0.15em] text-paper transition-colors hover:bg-transparent hover:text-ink sm:flex"
           >
-            <IconGitHub />
             {t(content.nav.cta)}
           </a>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
+            className="flex h-9 w-9 items-center justify-center border border-ink/20 text-ink md:hidden"
             aria-label="Toggle menu"
             aria-expanded={open}
           >
@@ -68,14 +67,14 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-white/5 bg-slatey-950/95 px-6 py-4 backdrop-blur-xl md:hidden">
+        <div className="border-t border-ink/10 bg-paper/97 px-6 py-4 backdrop-blur-md md:hidden">
           <div className="flex flex-col gap-3">
             {content.nav.links.map((l) => (
               <a
                 key={l.id}
                 href={`#${l.id}`}
                 onClick={() => setOpen(false)}
-                className="py-1 text-slatey-200"
+                className="py-1 font-mono text-sm uppercase tracking-[0.12em] text-ink-soft"
               >
                 {t(l)}
               </a>
@@ -86,9 +85,8 @@ export default function Nav() {
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full bg-neon px-4 py-1.5 text-sm font-medium text-slatey-950"
+                className="border border-ink bg-ink px-4 py-1.5 font-mono text-xs uppercase tracking-[0.15em] text-paper"
               >
-                <IconGitHub />
                 {t(content.nav.cta)}
               </a>
             </div>
