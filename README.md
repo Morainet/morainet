@@ -1,5 +1,11 @@
 # Morainet
 
+<!-- README-I18N:START -->
+
+**English** | [汉语](./README.zh.md)
+
+<!-- README-I18N:END -->
+
 > **Build. Share. Evolve.** — Building enduring technology through open collaboration.
 > **构建 · 共享 · 演化** —— 以开放协作打造持久的技术。
 
