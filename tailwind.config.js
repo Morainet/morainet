@@ -35,10 +35,27 @@ module.exports = {
           900: "#0d1117",
           950: "#070a0f",
         },
-        // Neon accent
+        // Neon accent (kept for glows on icons/marks)
         neon: {
           DEFAULT: "#48e6d4",
           glow: "#7af5e8",
+        },
+        // Single editorial accent — deep glacier blue, used sparingly
+        accent: {
+          DEFAULT: "#15627e",
+          600: "#0f4d63",
+          700: "#0b3b4d",
+        },
+        // Paper (light surfaces) and ink (text) for the editorial system
+        paper: {
+          DEFAULT: "#f3f4f3",
+          soft: "#eaecec",
+          card: "#ffffff",
+        },
+        ink: {
+          DEFAULT: "#15191c",
+          soft: "#414950",
+          mute: "#79838a",
         },
       },
       fontFamily: {
@@ -67,7 +84,7 @@ module.exports = {
       },
       backgroundImage: {
         "grid-fade":
-          "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(28,60,80,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(28,60,80,0.05) 1px, transparent 1px)",
       },
     },
   },
