@@ -27,7 +27,7 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             {t(h.eyebrow)}
           </span>
-          <span className="hidden sm:block">Est. 2024</span>
+          <span className="hidden sm:block">Est. 2026</span>
         </motion.div>
 
         {/* Oversized headline */}

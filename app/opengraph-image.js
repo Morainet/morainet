@@ -4,6 +4,12 @@ export const alt = "Morainet — Build. Share. Evolve.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Generate on-demand only. @vercel/og's bundled-font path resolution
+// breaks under Node on Windows (see "Invalid URL" on fileURLToPath),
+// and edge runtime sidesteps that path entirely.
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 export default function Image() {
   return new ImageResponse(
     (
