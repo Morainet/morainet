@@ -1,5 +1,6 @@
 import Backdrop from "@/components/Backdrop";
 import Nav from "@/components/Nav";
+import ScrollProgress from "@/components/ScrollProgress";
 import Hero from "@/components/sections/Hero";
 import Stats from "@/components/sections/Stats";
 import About from "@/components/sections/About";
@@ -17,6 +18,7 @@ export default function Home() {
     <>
       <Backdrop />
       <Nav />
+      <ScrollProgress />
       <main className="relative">
         <Hero />
         <Stats />

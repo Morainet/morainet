@@ -11,6 +11,27 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard focus visibility for accessibility */
+:focus-visible {
+  outline: 2px solid #15627e;
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
 body {
   background-color: var(--paper);
   color: var(--ink);

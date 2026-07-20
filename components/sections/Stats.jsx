@@ -3,6 +3,7 @@
 import { content } from "@/lib/content";
 import { useT } from "../LanguageProvider";
 import Reveal from "../Reveal";
+import Counter from "../Counter";
 
 export default function Stats() {
   const t = useT();
@@ -15,7 +16,9 @@ export default function Stats() {
           {s.items.map((item, i) => (
             <Reveal key={i} delay={i}>
               <div className="border-b border-ink/10 px-2 py-8 md:border-b-0 md:border-l md:px-8 md:[&:first-child]:border-l-0">
-                <div className="display text-4xl sm:text-5xl">{item.value}</div>
+                <div className="display text-4xl sm:text-5xl">
+                  <Counter value={item.value} />
+                </div>
                 <div className="mt-3 section-label">{t(item)}</div>
               </div>
             </Reveal>
