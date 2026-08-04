@@ -36,8 +36,12 @@ export default function Counter({ value, duration = 1.4, className = "" }) {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduceMotion = useReducedMotion();
   const mv = useMotionValue(0);
-  const [display, setDisplay] = useState("0");
   const parsed = parse(value);
+  // Render the final value by default (SSR + before entering viewport).
+  // The animation starts from 0 only once the element scrolls into view.
+  const [display, setDisplay] = useState(
+    parsed.animate ? String(parsed.num) : "0"
+  );
 
   useEffect(() => {
     if (!parsed.animate || !inView) return;
@@ -47,7 +51,9 @@ export default function Counter({ value, duration = 1.4, className = "" }) {
       return;
     }
 
+    // Reset to 0 so the count-up is visible from the start.
     mv.set(0);
+    setDisplay("0");
     const controls = animate(mv, parsed.num, {
       duration,
       ease: [0.21, 0.6, 0.35, 1],

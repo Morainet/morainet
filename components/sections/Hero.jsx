@@ -7,7 +7,6 @@ import {
   useSpring,
   useTransform,
   useReducedMotion,
-  useInView,
 } from "framer-motion";
 import { content, GITHUB_URL } from "@/lib/content";
 import { useLanguage, useT } from "../LanguageProvider";
@@ -34,7 +33,6 @@ export default function Hero() {
 
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
-  const inView = useInView(sectionRef, { margin: "-20% 0px -20% 0px" });
 
   // Mouse parallax — restrained amplitude (±6px headline / ±12px glow).
   // Only active while Hero is on screen and motion is allowed.
@@ -86,14 +84,12 @@ export default function Hero() {
       onMouseLeave={onMouseLeave}
       className="relative flex min-h-screen flex-col justify-center pt-28 pb-16"
     >
-      {/* Parallax glow — drifts opposite to the headline for depth. */}
+      {/* Parallax glow — drifts opposite to the headline for depth.
+          Motion values stay bound at all times (mx/my reset to 0 on
+          mouseleave), so there's no style flicker on enter/leave. */}
       <motion.div
         aria-hidden="true"
-        style={
-          reduceMotion || !inView
-            ? undefined
-            : { x: glowX, y: glowY }
-        }
+        style={reduceMotion ? undefined : { x: glowX, y: glowY }}
         className="pointer-events-none absolute left-1/2 top-[-14rem] h-[30rem] w-[48rem] -translate-x-1/2 rounded-full bg-glacier-200/30 blur-[150px]"
       />
 
@@ -117,7 +113,7 @@ export default function Hero() {
           variants={headlineContainer}
           initial="hidden"
           animate="show"
-          style={reduceMotion || !inView ? undefined : { x: headlineX, y: headlineY }}
+          style={reduceMotion ? undefined : { x: headlineX, y: headlineY }}
           className="display mt-8 flex flex-wrap gap-x-[0.25em] text-[16vw] leading-[0.92] sm:text-[12vw] lg:text-[9.5rem]"
         >
           {words.map((w, i) => (

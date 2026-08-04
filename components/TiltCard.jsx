@@ -4,6 +4,7 @@ import { useRef } from "react";
 import {
   motion,
   useMotionValue,
+  useMotionTemplate,
   useSpring,
   useTransform,
   useReducedMotion,
@@ -12,13 +13,17 @@ import {
 // Wraps a card with a restrained 3D tilt + cursor-tracking spotlight.
 // Tilt amplitude is intentionally small (±4deg) to stay within the
 // editorial "quiet" register. A radial highlight follows the cursor via
-// CSS custom properties. Everything flattens under reduced-motion.
-export default function TiltCard({ children, className = "", spotlight = true }) {
+// a motion-template background (no DOM event juggling). Everything
+// flattens under reduced-motion.
+export default function TiltCard({ children, className = "" }) {
   const reduceMotion = useReducedMotion();
   const ref = useRef(null);
 
-  const px = useMotionValue(0.5); // 0..1 across the card
+  // px/py in 0..1 across the card, driven by a single mouse handler on the
+  // outer wrapper — one source of truth feeds both the tilt and the glow.
+  const px = useMotionValue(0.5);
   const py = useMotionValue(0.5);
+
   const rotateX = useSpring(useTransform(py, [0, 1], [4, -4]), {
     stiffness: 150,
     damping: 18,
@@ -27,6 +32,12 @@ export default function TiltCard({ children, className = "", spotlight = true })
     stiffness: 150,
     damping: 18,
   });
+
+  // Spotlight: radial gradient whose center is the cursor, expressed as a
+  // single motion background string so it updates without re-rendering.
+  const mxpct = useTransform(px, (v) => `${v * 100}%`);
+  const mypct = useTransform(py, (v) => `${v * 100}%`);
+  const spotlightBg = useMotionTemplate`radial-gradient(220px circle at ${mxpct} ${mypct}, rgba(21,98,126,0.10), transparent 60%)`;
 
   const onMouseMove = (e) => {
     if (reduceMotion || !ref.current) return;
@@ -48,24 +59,18 @@ export default function TiltCard({ children, className = "", spotlight = true })
       style={{ perspective: 1000 }}
     >
       <motion.div
-        style={reduceMotion ? undefined : { rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={
+          reduceMotion
+            ? undefined
+            : { rotateX, rotateY, transformStyle: "preserve-3d" }
+        }
         className="group relative h-full"
       >
-        {spotlight && !reduceMotion && (
-          <div
+        {!reduceMotion && (
+          <motion.div
             aria-hidden="true"
+            style={{ backgroundImage: spotlightBg }}
             className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            style={{
-              background:
-                "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(21,98,126,0.10), transparent 60%)",
-            }}
-            // Spotlight position is driven by the same px/py via CSS vars so
-            // it tracks the cursor without re-rendering.
-            onMouseMove={(e) => {
-              const r = e.currentTarget.getBoundingClientRect();
-              e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
-              e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
-            }}
           />
         )}
         {children}
